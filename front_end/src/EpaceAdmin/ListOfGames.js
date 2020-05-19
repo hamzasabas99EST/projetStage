@@ -1,0 +1,98 @@
+import React, { Component } from 'react';
+import axios from 'axios';
+import Search from '../components/SearchAdmin/Search';
+
+
+class ListOfGames extends Component {
+    constructor(props){ 
+        super(props);  
+        this.state={
+            reservations:[],
+            DateDebut:'',
+            DateDeFin:'',
+            
+        
+        }
+     }
+     componentDidMount=()=>{
+        const idCentre=localStorage.getItem("idCentre");
+        axios.get(`http://localhost:9017/admins/GamesOfWeek/`+idCentre)
+        .then(res=>{
+            this.setState({
+                reservations:res.data
+            })
+        })
+
+        this.getPeriode(idCentre);
+    }
+    
+        getPeriode=(idCentre)=>{
+          axios.get(`http://localhost:9017/admins/findPeriod/`+idCentre)
+          .then(res=>{
+              this.setState({
+                  DateDeDebut:res.data[0].DateDeDebut,
+                  DateDeFin:res.data[0].DateDeFin
+    
+              })
+          })
+          .catch(err=>console.log(err));
+          
+      }
+    
+      search=(DateDeMatch,idHourGame)=>{
+        const idCentre=localStorage.getItem("idCentre");
+        if(idHourGame!=='' ){
+          axios.get(`http://localhost:9017/admins/GamesSearch/`+idCentre+`/`+DateDeMatch+`/`+idHourGame)
+          .then(res=>{
+            this.setState({
+              reservations:res.data
+            })
+          })
+          .catch(err=>console.log(err));
+  
+      }
+    }
+    
+    render() {
+        return (
+            <div className="container1">
+            <Search   searchReservation={this.search}/>
+          <table className="admin" >
+                <thead>
+                  <tr>
+                    <th>Terrain</th>
+                    <th  data-th="Driver details">CIN</th>
+                    <th colSpan="2">Nom et prenom </th>
+                    <th>Date De Heure</th>
+                    <th>Heure De Match</th>
+                    <th>Status</th>
+                   
+                  </tr>
+                </thead>
+                <tbody> 
+                  {this.state.reservations.map((reservation,index)=>(
+                      <tr key={reservation._id}>
+                        <td>{index+1}</td>
+                        <td>{reservation.idClient.CIN}</td>
+                        <td>{reservation.idClient.Nom}</td> <td>{reservation.idClient.Prenom}</td>
+                        <td>{new Date(reservation.DateDeMatch).toLocaleDateString()}</td>
+                        <td>{reservation.idHourGame.HeureDebut}:00h -> {reservation.idHourGame.HeureFin}:00h</td>
+                        <td >
+                            <span class="badge badge-success  px-md-4">{reservation.Status}</span>
+                        </td>
+                      
+                    </tr>
+                  ))
+                  }
+                </tbody>
+                
+              </table>
+            
+              
+          </div>
+
+        );
+    }
+}
+
+export default ListOfGames;
