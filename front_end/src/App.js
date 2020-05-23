@@ -39,10 +39,11 @@ class App extends Component {
 
    this.state={
        ClientLoggedIn :false,
-       AdminLoggedIn:false,
-    }
+       games:0
+      }
   }
 
+ 
   handleLoggINClient=()=>{
     this.setState({
       ClientLoggedIn :true
@@ -95,7 +96,7 @@ this.setState({
       return (
           <Router>
             <div>
-              <Sidebar IsDeceonnected={this.handleLoggOutClient}/>
+              <Sidebar IsDeceonnected={this.handleLoggOutClient} Game={this.state.games}/>
               <Switch>
                 <Route exact path='/EspaceClient/' component={DashboardClient} />
                 <Route path='/EspaceClient/Reservation' component={FormReservation} />

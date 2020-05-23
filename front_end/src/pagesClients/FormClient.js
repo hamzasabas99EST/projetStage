@@ -70,7 +70,7 @@ const RightSide = props => {
       onClick={props.onClick}
     >
       <div className="inner-container">
-        <div className="text">{props.current}</div>
+        <div className="text1">{props.current}</div>
       </div>
     </div>
   );

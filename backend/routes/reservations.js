@@ -31,7 +31,14 @@ router.route('/client/:idClient/:idCentre').get(async (req,res)=>{
                      .populate("idHourGame")
                      .populate('idClient')
                      .populate("idCentre"); 
-     res.json(reer);
+    let hadGame=await false;
+
+    for(let i=0;i<reer.length;i++){
+        if(reer[i].Status==="Accepter") { 
+            hadGame=true
+        };    
+    }
+     res.json({hadGame:hadGame,Reservation:reer});
      }catch(e){
         console.log(e);
     }
@@ -68,13 +75,15 @@ router.route('/byclients/:idClient/:idVille').get(async (req,res)=>{
     const DateDeDebut=await period[0].DateDeDebut;
     const DateDeFin=await period[0].DateDeFin;
     const reservations=await Reservation.find({$and:[{idClient:idClient},{idCentre:id_Centre},
-                     {"DateDeMatch": { $gte: DateDeDebut, $lte: DateDeFin }}]})
-                     .where('Status').in(['En attente','Updated','Refuser'])
-                     .sort({DateDeMatch:1,idHourGame:1})
-                     .populate("idHourGame")
-                     .populate('idClient')
-                     .populate("idCentre"); 
-     res.json(reservations);
+        {"DateDeMatch": { $gte: DateDeDebut, $lte: DateDeFin }}]})
+        .where('Status').in(['En attente','Updated','Refuser'])
+        .sort({DateDeMatch:1,idHourGame:1})
+        .populate("idHourGame")
+        .populate('idClient')
+        .populate("idCentre");
+  
+     
+     return res.json(reservations);
    }   catch(e){
             console.log(e);
         }
@@ -98,6 +107,7 @@ router.route('/byclients/:idClient/:idVille').get(async (req,res)=>{
                      .populate("idHourGame")
                      .limit(1);
 
+    
     res.json(reservations)
     }catch(e){
         console.log(e);

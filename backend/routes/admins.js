@@ -9,25 +9,37 @@ let Hour=require('../models/hour.model');
 router.route('/addAdmin').post((req,res)=>{
     const Nom=req.body.Nom;
     const Prenom=req.body.Prenom;
-    const email=req.body.email;
+    const username=req.body.username;
     const motdepass=req.body.motdepass;
     const idCentre=req.body.idCentre;
     
     const newAdmin=new Admin({
-         Nom,Prenom,email,motdepass,idCentre,isLogged:false
+         Nom,Prenom,username,motdepass,idCentre,isLogged:false
     });
     newAdmin.save()
     .then(()=>res.json('Admin addd'))
     .catch(err=>res.status(400).json('Error'+err));
 });
 
-router.route('/loginAdmin').post((req,res)=>{
-    const email=req.body.email;
+router.route('/loginAdmin').post(async(req,res)=>{
+    const username=req.body.username;
     const motdepass=req.body.motdepass;
     
-    Admin.find({$and:[{'email':email},{'motdepass':motdepass}]})
+    /*Admin.find({$and:[{'email':email},{'motdepass':motdepass}]})
     .then(admin=>res.send(admin))
     .catch(err=>res.status(400).json('Error'+err));
+*/
+    const admin= await Admin.findOne({'username':username});
+        if(!admin){
+            return res.status(404).send({errAdmin:true,message:"invalide username "});
+        }
+       else if(motdepass!==admin.motdepass){
+           return res.status(404).send({errPass:true,message:"invalide mot de passe"});
+       }
+       
+        return res.send({admin});
+
+
 });
 
 router.route('/addPeriod').post((req,res)=>{
@@ -57,36 +69,94 @@ router.route('/findReservationbyCentre/:idCentre').get(async(req,res)=>{
   //Cette fonction aide admin pour trouver les reservations evoyées 
     const idCentre=req.params.idCentre;
     const centre=await Centre.findById(idCentre);
-    const nbr=await centre.nbrTerrains
+    const nbr=await centre.nbrTerrains;
     const idHourGame=await Hour.find().sort({_id:1});
-    const period=await Period.find(idCentre=>idCentre).sort({_id:-1}).limit(1);
-    const DateDeDebut=await period[0].DateDeDebut;
-    const reer=await Reservation.find({$and:[{idCentre:idCentre},{"DateDeMatch":DateDeDebut},{"idHourGame":idHourGame[0]._id}]})
+    const period=await Period.find({idCentre:idCentre}).sort({_id:-1}).limit(1);
+    const accepter=await Reservation.find({$and:[{idCentre:idCentre},{"DateDeMatch":period[0].DateDeDebut},{"idHourGame":idHourGame[0]._id}]})
+              .where('Status').in(['Accepter'])
+              .sort({DateDeMatch:1,idHourGame:1})
+              .populate("idHourGame")
+              .populate('idClient')
+              .populate("idCentre") 
+              .limit(nbr);
+    const reer= await Reservation.find({$and:[{idCentre:idCentre},{"DateDeMatch":period[0].DateDeDebut},{"idHourGame":idHourGame[0]._id}]})
+
+                    /*.where('idCentre').equals(idCentre)
+                    .where('idHourGame').equals(idHourGame[0]._id)
+                    .where('DateDeMatch').equals(period[0].DateDeDebut)*/
                     .sort({DateDeMatch:1,idHourGame:1})
                     .populate("idHourGame")
                     .populate('idClient')
                     .populate("idCentre") 
-                    .limit(nbr*2);
-    res.json(reer);
+                   .limit(nbr*2);
+         
+   return res.json({reservations:reer,numberAccept:accepter.length,terrain:nbr});
 });
 router.route('/ReservationsSearch/:idCentre/:q1/:q2').get(async(req,res)=>{
   const DateDeMatch= await req.params.q1;
   const idHourGame=await req.params.q2;
   const idCentre=req.params.idCentre;
   const centre=await Centre.findById(idCentre);
-  const nbr=await centre.nbrTerrains
+  const nbr=await centre.nbrTerrains;
+  const accepter=await Reservation.find({$and:[{"idCentre":idCentre},{"idHourGame":idHourGame},{"DateDeMatch":DateDeMatch}]})
+                  .where('Status').in(['Accepter'])
+                  .sort({DateDeMatch:1,idHourGame:1})
+                  .populate("idHourGame")
+                  .populate('idClient')
+                  .populate("idCentre") 
+                  .limit(nbr);
   const reer=await Reservation.find({$and:[{"idCentre":idCentre},{"idHourGame":idHourGame},{"DateDeMatch":DateDeMatch}]})
-                  //.where('Status').in(['En attente','Updated'])
-                    .sort({DateDeMatch:1,idHourGame:1}).populate("idHourGame")
-                    .populate('idClient').populate("idCentre").limit(nbr*2);/*find({idCentre:idCentre}).sort({DateDeMatch:1}).populate("idCentre")*/ 
-    return  res.json(reer);
+                  .sort({DateDeMatch:1,idHourGame:1}).populate("idHourGame")
+                  .populate('idClient').populate("idCentre").limit(nbr*2);/*find({idCentre:idCentre}).sort({DateDeMatch:1}).populate("idCentre")*/ 
+
+                  
+
+      return    res.json({reservations:reer,numberAccept:accepter.length,terrain:nbr});
+
     
 });
 
+router.route('/Rejectall/:idCentre/:q1/:q2').post(async(req,res)=>{
+  const DateDeMatch= await req.params.q1;
+  const idHourGame=await req.params.q2;
+  const idCentre=await req.params.idCentre;
+
+  const reer=await Reservation.updateMany(
+                    {$and:[
+                      {idCentre:idCentre},
+                      {"DateDeMatch":DateDeMatch},
+                      {"idHourGame":idHourGame},
+                      {Status:['En attente','Updated']}
+                    ]}
+                    ,{$set:{Status:'Refuser'} }
+                )
+
+                  
+
+      return    res.json(reer);
+
+    
+});
 
 router.route('/Accept/:id').post(async (req,res)=>{
   const updated=await Reservation.findByIdAndUpdate({_id:req.params.id},{Status:'Accepter'},{ upsert: true })
-  res.json(updated)
+  const period=await Period.find({idCentre:updated.idCentre}).sort({_id:-1}).limit(1);
+ 
+  const RefuseOtherReservations=await Reservation.updateMany(
+                              {
+                                $and:[
+                                {idClient:updated.idClient},
+                                {idCentre:updated.idCentre},
+                                {DateDeMatch: { $gte: period[0].DateDeDebut, $lte: period[0].DateDeFin }},
+                                {Status:['En attente','Updated']}
+                              ] 
+                            }
+                              ,{$set:{Status:'Refuser'} }
+                              )
+                             
+
+  
+  res.json(RefuseOtherReservations)
 });
 
 router.route('/Reject/:id').post(async (req,res)=>{
@@ -101,7 +171,7 @@ router.route('/GamesOfWeek/:idCentre').get(async(req,res)=>{
     const centre=await Centre.findById(idCentre);
     const nbr=await centre.nbrTerrains;
     const idHourGame=await Hour.find().sort({_id:1});
-    const period=await Period.find(idCentre=>idCentre).sort({_id:-1}).limit(1);
+    const period=await Period.find({idCentre:idCentre}).sort({_id:-1}).limit(1);
     const DateDeDebut=await period[0].DateDeDebut;
     const reer=await Reservation.find({$and:[{idCentre:idCentre},{"DateDeMatch":DateDeDebut},{"idHourGame":idHourGame[0]._id}]})
                     .where('Status').in(['Accepter'])

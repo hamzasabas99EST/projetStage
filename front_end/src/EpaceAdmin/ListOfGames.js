@@ -7,11 +7,7 @@ class ListOfGames extends Component {
     constructor(props){ 
         super(props);  
         this.state={
-            reservations:[],
-            DateDebut:'',
-            DateDeFin:'',
-            
-        
+          reservations:[]
         }
      }
      componentDidMount=()=>{
@@ -23,27 +19,15 @@ class ListOfGames extends Component {
             })
         })
 
-        this.getPeriode(idCentre);
     }
     
-        getPeriode=(idCentre)=>{
-          axios.get(`http://localhost:9017/admins/findPeriod/`+idCentre)
-          .then(res=>{
-              this.setState({
-                  DateDeDebut:res.data[0].DateDeDebut,
-                  DateDeFin:res.data[0].DateDeFin
-    
-              })
-          })
-          .catch(err=>console.log(err));
-          
-      }
+       
     
       search=(DateDeMatch,idHourGame)=>{
         const idCentre=localStorage.getItem("idCentre");
         if(idHourGame!=='' ){
           axios.get(`http://localhost:9017/admins/GamesSearch/`+idCentre+`/`+DateDeMatch+`/`+idHourGame)
-          .then(res=>{
+          .then(res=>{console.log(res.data)
             this.setState({
               reservations:res.data
             })
@@ -63,6 +47,7 @@ class ListOfGames extends Component {
                     <th>Terrain</th>
                     <th  data-th="Driver details">CIN</th>
                     <th colSpan="2">Nom et prenom </th>
+                    <th>Telephone</th>
                     <th>Date De Heure</th>
                     <th>Heure De Match</th>
                     <th>Status</th>
@@ -75,6 +60,7 @@ class ListOfGames extends Component {
                         <td>{index+1}</td>
                         <td>{reservation.idClient.CIN}</td>
                         <td>{reservation.idClient.Nom}</td> <td>{reservation.idClient.Prenom}</td>
+                        <td>{reservation.idClient.telephone}</td>
                         <td>{new Date(reservation.DateDeMatch).toLocaleDateString()}</td>
                         <td>{reservation.idHourGame.HeureDebut}:00h -> {reservation.idHourGame.HeureFin}:00h</td>
                         <td >

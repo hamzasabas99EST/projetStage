@@ -100,7 +100,7 @@ SearchReservations=(Centre)=>{
                       }
                     </td>
                     <td >
-                      {(reservation.Status!=='Refuser' && reservation.Status!=='Updated') && 
+                      {reservation.Status==='En attente'  && 
                        <Link to="#" className="btn btn-danger" onClick={()=>this.CanceledReservation(reservation._id)} data-toggle="tooltip" title="Annuler La réservation"><FontAwesomeIcon icon={faWindowClose}/></Link> 
                     }
                        </td>

@@ -44,22 +44,26 @@ class LoginClient extends Component {
                localStorage.setItem("name",res.data.login.Nom+' '+res.data.login.Prenom );
                this.props.history.push('/EspaceClient/Rules');
               
-            }/*else this.setState({
-                message:"herr",
-                isLogged:false
-
-            })*/
-          /* if(res.data.length===1){ 
-              this.props.SetLoggedIn();
-               localStorage.setItem("id",res.data.login._id);
-               localStorage.setItem("idVille",res.data.login.idVille);
-               localStorage.setItem("name",res.data.login.Nom+' '+res.data.login.Prenom );
-               this.props.history.push('/EspaceClient/Rules');
-              
-            } 
-           else {this.setState({ isLogged:false})}*/
+             }
         })
-       .catch(err=>console.log(err));
+       .catch(err=>{
+             console.log(err.response.data.errPass)
+                if(err.response.data.errPass){
+                    this.setState({
+                        message:err.response.data.message,
+                        isLogged:false
+        
+                    }) 
+                }else {
+                    this.setState({
+                    message:err.response.data.message,
+                    isLogged:false
+    
+                }) 
+            }
+            }
+            
+       );
     }
     render() {
         return (

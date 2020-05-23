@@ -5,6 +5,8 @@ import { faWindowClose } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link} from 'react-router-dom';
 import Search from '../components/SearchAdmin/Search';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 
 
@@ -14,23 +16,29 @@ class ListOfReservations extends Component {
         super(props);  
         this.state={
             reservations:[],
+            accepter:0,
+            nombreTerrain:0
           
         }
      }
-    componentDidMount=()=>{
-        const idCentre=localStorage.getItem("idCentre");
+    componentDidMount=async()=>{
+        const idCentre=await localStorage.getItem("idCentre");
+
         axios.get(`http://localhost:9017/admins/findReservationbyCentre/`+idCentre)
-        .then(res=>{
+        .then(res=>
+           {
+             console.log(res)
             this.setState({
-                reservations:res.data
+                reservations:res.data.reservations,
+                accepter:res.data.numberAccept,
+                nombreTerrain:res.data.terrain
+                
             })
         })
 
         
     }
-    componentWillUpdate=async(nextProps,nextState) =>{
-      return nextState.reservations!==this.state.reservations
-  }
+   
 
     
         
@@ -40,9 +48,12 @@ class ListOfReservations extends Component {
       const idCentre=localStorage.getItem("idCentre");
       if(idHourGame!=='' ){
         axios.get(`http://localhost:9017/admins/ReservationsSearch/`+idCentre+`/`+DateDeMatch+`/`+idHourGame)
-        .then(res=>{
+        .then(res=>{console.log(res.data)
           this.setState({
-            reservations:res.data
+            reservations:res.data.reservations,
+            accepter:res.data.numberAccept,
+            nombreTerrain:res.data.terrain
+
           })
         })
         .catch(err=>console.log(err));
@@ -52,15 +63,39 @@ class ListOfReservations extends Component {
 
   AcceptReservation=async(id)=>{
     axios.post(`http://localhost:9017/admins/Accept/`+id)
-     await this.setState({
+    await this.setState({
+      reservations:this.state.reservations.filter(reservation =>{
+        if(reservation._id === id){
+          reservation.Status="Accepter"
+        }
+        return reservation.Status
+      }  ),
+      accepter:this.state.accepter+1
+    });
+    if(this.state.accepter===this.state.nombreTerrain){
+      await this.setState({
         reservations:this.state.reservations.filter(reservation =>{
-          if(reservation._id === id){
-            reservation.Status="Accepter"
+          if(reservation._id !== id && reservation.Status!=="Accepter"){
+             axios.post(`http://localhost:9017/admins/Rejectall/`+reservation.idCentre._id+`/`+reservation.DateDeMatch+`/`+reservation.idHourGame._id)
+            
+             reservation.Status="Refuser"
           }
           return reservation.Status
         }  )
-      })
+
+      });
       
+      await Swal.fire({
+        title: 'les terrains sont complete ',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      })
+
+    }
   }
 
   RejectReservation=async(id)=>{
@@ -77,7 +112,7 @@ class ListOfReservations extends Component {
   
    
     render() {
-
+      console.log(this.state.accepter)
       return (
 
             <div className="container1">
@@ -85,7 +120,7 @@ class ListOfReservations extends Component {
             <table className="admin" >
                   <thead>
                     <tr>
-                      <th  data-th="Driver details">CIN</th>
+                      <th  >CIN</th>
                       <th colSpan="2">Nom et prenom </th>
                       <th>Date De Heure</th>
                       <th>Heure De Match</th>
@@ -102,15 +137,14 @@ class ListOfReservations extends Component {
                           <td>{reservation.idHourGame.HeureDebut}:00h -> {reservation.idHourGame.HeureFin}:00h</td>
                           <td >
                               {reservation.Status==='Refuser'
-                              ? <span class="badge badge-danger  px-md-4">{reservation.Status}</span>
-                              : reservation.Status==='Accepter' ? <span class="badge badge-success  px-md-4">{reservation.Status}</span>
-                              : <span class="badge badge-warning  px-md-4">{reservation.Status}</span>
+                              ? <span className="badge badge-danger  px-md-4">{reservation.Status}</span>
+                              : reservation.Status==='Accepter' ? <span className="badge badge-success  px-md-4">{reservation.Status}</span>
+                              : <span className="badge badge-warning  px-md-4">{reservation.Status}</span>
                             }
                           </td>
                           <td >
-                          {reservation.Status!=="Accepter"&& reservation.Status!=="Refuser"&&
+                          {(reservation.Status!=="Accepter"&& reservation.Status!=="Refuser" && this.state.accepter<this.state.nombreTerrain) &&
                             <Link to="#" className="btn btn-success" onClick={()=>this.AcceptReservation(reservation._id) } data-toggle="tooltip" title="Accepter La réservation"><FontAwesomeIcon icon={faCheck}/></Link>  
-                         
                          }
 
                           
@@ -133,19 +167,4 @@ class ListOfReservations extends Component {
     }
 }
 
-/*
-     <form class="form-inline">
-               
-                <div className="form-group1" >
-                <label htmlFor="">Date de Debut</label>
-                <DatePicker 
-                    className="form-control1"  
-                    onChange={this.onChangeDateDebut} 
-                    selected={this.state.DateDeDebut}
-                    placeholderText="Selectionner date de Debut"
-                    />
-            </div>
-                
-
-*/ 
 export default ListOfReservations;

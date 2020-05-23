@@ -261,6 +261,7 @@ input:focus{
     transition: all 250ms ease-in-out;
     cursor: pointer;
     width: 10em;
+    
 }
 .btn1:hover{
     background-color: #2386c8;
@@ -269,7 +270,7 @@ input:focus{
     outline: none;
 }
 .login {
-    width: 40em;
+    width: 44em;
     height: auto;
     display: flex;
     justify-content: center;
@@ -325,13 +326,21 @@ input:focus{
     }
 
     
-    .text {
+    .text1 {
     font-size: 21px;
     font-weight: 500;
     color: #fff;
     margin-right: 30em;
     margin-left: 12em;
     }
+    .text {
+      font-size: 20px;
+      font-weight: 50px;
+      color: black;
+      padding-top: 15px;
+      }
+    
+
 
     #notfound {
         position: relative;
@@ -530,6 +539,70 @@ input:focus{
           font-size: 26px;
         }
       }
+
       
   
 /*formuulaire*/
+
+/*Services*/
+.container0{
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.services {
+  padding: 5px 0;
+  background-color: #f7f7f7;
+}
+
+.services .section_title h1{
+  font-family: 'Monserrat', sans-serif;
+  color: #222222;
+  font-weight: 700;
+  font-size: 40px;
+  margin: 10px;
+  margin-bottom: 20;
+  text-align: center;
+}
+
+.services .section_title p{
+  font-family: 'Droid Serif', serif;
+  color: #777777;
+  font-style: italic;
+  font-size: 16px;
+  text-align: center  ;
+  
+}
+
+.services_boxs .ser{
+  width: 32%;
+  float: left;
+  text-align: center;
+  margin-top: 5px;
+  margin-right: 1px;
+  margin-bottom: 10%;
+
+}
+.services_boxs .ser .imag{
+  font-size: 40px;
+  color: #BC8F8F;
+  border: 3px solid rgba(0,136,169,1) ;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  line-height: 50px;
+}
+.services_boxs .ser .titleh1{
+  font-family: 'Monserrat', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #222222;
+}
+
+.services_boxs .ser .paragraph{
+    font-family:'Droid Serif', sans-serif;
+    font-size:14px ;
+    color: #777777;
+}
+
+/*end*/

@@ -85,6 +85,20 @@ router.route('/findCentres/:idCentre').get((req,res)=>{
     .catch(err=>res.status(400).json('Error'+err));
 });
 
+router.route('/findCentresByCities/').get(async(req,res)=>{
+  
+    var centres=await Centre.find();
+    //const ville=await Ville.findById({_id:centres[1].idVille})
+    for(let i=0;i<centres.length;i++){
+       // let ville=await Ville.findById({_id:centre.idVille})
+       centres[i].nomVille=await "await ville.NomVille"
+    }
+    res.json(centres);
+   
+    
+});
+
+
 router.route('/AboutUs').get(async (req,res)=>{
     try{
         let admins=await (await Admin.find()).length; 

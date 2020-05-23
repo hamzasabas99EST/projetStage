@@ -7,19 +7,20 @@ import { Alert } from 'react-bootstrap';
 class LoginAdmin extends Component {
     constructor(props){ 
         super(props);
-        this.onChangeEmial=this.onChangeEmail.bind(this);
+        this.onChangeUsername=this.onChangeUsername.bind(this);
         this.onChangeMotDePass=this.onChangeMotDePass.bind(this);
       
         this.state={
-            email:'',
+            username:'',
             motdepass:'',
-            isLogged:true
+            isLogged:true,
+            message:''
             }
         }
 
-    onChangeEmail=(e)=>{
+    onChangeUsername=(e)=>{
         this.setState({
-            email:e.target.value
+            username:e.target.value
         })
     }
     
@@ -31,22 +32,37 @@ class LoginAdmin extends Component {
 
     LogAdmin=(e)=>{
         e.preventDefault();
-        const Admin={
-            email:this.state.email,
+        const admin={
+            username:this.state.username,
             motdepass:this.state.motdepass
         }
-        axios.post(`http://localhost:9017/admins/loginAdmin`,Admin)
-        .then(res=>{
-            if(res.data.length===1){
-              
+        axios.post(`http://localhost:9017/admins/loginAdmin`,admin)
+        .then(res=>{console.log(res.data.admin)
+            if(res.status===200){
                 this.props.AdminLoggedIn();
-                localStorage.setItem("idCentre",res.data[0].idCentre);
-                localStorage.setItem("nameAdmin",res.data[0].Nom+' '+res.data[0].Prenom );
-
-                this.props.history.push('/EspaceAdmin');
-            }else {this.setState({ isLogged:false})}
+                localStorage.setItem("idCentre",res.data.admin.idCentre);
+                localStorage.setItem("nameAdmin",res.data.admin.Nom+' '+res.data.admin.Prenom );
+                this.props.history.push('/EspaceAdmin/');
+            }
         })
-        .catch(err=>console.log(err))
+        .catch(err=>{
+            console.log(err.response)
+               if(err.response.data.errAdmin){
+                   this.setState({
+                       message:err.response.data.message,
+                       isLogged:false
+       
+                   }) 
+               }else {
+                   this.setState({
+                   message:err.response.data.message,
+                   isLogged:false
+   
+               }) 
+           }
+           }
+           
+      );
     }
     
     render() {
@@ -59,7 +75,7 @@ class LoginAdmin extends Component {
                             <div className="header-form">Login Admin</div> <br></br>
                                     {!this.state.isLogged &&
                                     <Alert variant="danger"  onClose={() =>this.setState({ isLogged:true})}  dismissible>
-                                        <p>Votre E-mail ou le mot de passe incorrecte</p>
+                                        <p>{this.state.message}</p>
                         
                                     </Alert>
                                     }
@@ -67,12 +83,12 @@ class LoginAdmin extends Component {
                                     <div className ="content" >
                                         <div className="form">
                                             <div className="form-group">
-                                                <label htmlFor="e-mail">E-mail</label> 
+                                                <label htmlFor="e-mail">Username</label> 
                                                 <input type="text" 
-                                                    autoComplete="email" 
-                                                    placeholder="E-mail" 
-                                                    value={this.state.email} 
-                                                    onChange={this.onChangeEmail}
+                                                    autoComplete="username" 
+                                                    placeholder="username" 
+                                                    value={this.state.username} 
+                                                    onChange={this.onChangeUsername}
                                                 /> 
                                             </div>
                                             <div className="form-group">
