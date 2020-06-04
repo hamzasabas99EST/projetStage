@@ -38,7 +38,7 @@ class LoginClient extends Component {
         axios.post(`http://localhost:9017/clients/login`,client)
         .then(res=>{ console.log(res)
              if(res.status===200){
-                this.props.SetLoggedIn();
+              this.props.SetLoggedIn();
                localStorage.setItem("id",res.data.login._id);
                localStorage.setItem("idVille",res.data.login.idVille);
                localStorage.setItem("name",res.data.login.Nom+' '+res.data.login.Prenom );
@@ -88,7 +88,7 @@ class LoginClient extends Component {
                     </div>   
                 </div>
                 <div className="footer-form">
-                    <button type="submit" className="btn1" >Login</button>
+                    <button type="submit" className="btn1" >Connexion</button>
                 </div>
                 </form>
             </div>

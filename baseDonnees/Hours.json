@@ -1,0 +1,67 @@
+[{
+  "_id": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "HeureDebut": 9,
+  "HeureFin": 10
+},{
+  "_id": {
+    "$oid": "5eac1c5a9c0f332f04a9ff4f"
+  },
+  "HeureDebut": 10,
+  "HeureFin": 11
+},{
+  "_id": {
+    "$oid": "5eac1c609c0f332f04a9ff50"
+  },
+  "HeureDebut": 11,
+  "HeureFin": 12
+},{
+  "_id": {
+    "$oid": "5eac1c679c0f332f04a9ff51"
+  },
+  "HeureDebut": 15,
+  "HeureFin": 16
+},{
+  "_id": {
+    "$oid": "5eac1c6c9c0f332f04a9ff52"
+  },
+  "HeureDebut": 16,
+  "HeureFin": 17
+},{
+  "_id": {
+    "$oid": "5eac1c759c0f332f04a9ff53"
+  },
+  "HeureDebut": 17,
+  "HeureFin": 18
+},{
+  "_id": {
+    "$oid": "5eac1c7d9c0f332f04a9ff54"
+  },
+  "HeureDebut": 18,
+  "HeureFin": 19
+},{
+  "_id": {
+    "$oid": "5eac1c869c0f332f04a9ff55"
+  },
+  "HeureDebut": 19,
+  "HeureFin": 20
+},{
+  "_id": {
+    "$oid": "5eac1c8b9c0f332f04a9ff56"
+  },
+  "HeureDebut": 20,
+  "HeureFin": 21
+},{
+  "_id": {
+    "$oid": "5eac1c919c0f332f04a9ff57"
+  },
+  "HeureDebut": 21,
+  "HeureFin": 22
+},{
+  "_id": {
+    "$oid": "5eac1c979c0f332f04a9ff58"
+  },
+  "HeureDebut": 22,
+  "HeureFin": 23
+}]

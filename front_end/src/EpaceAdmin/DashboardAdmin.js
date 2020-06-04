@@ -10,7 +10,7 @@ class DashboardAdmin extends Component {
         
         this.state={
             dataPie: {
-                labels: ["En attente", "Updated", "Accepter", "Refuser"],
+                labels: ["En attente", "Modifiée", "Acceptée", "Refusée"],
                 datasets: [
                   {
                     data: [30, 150, 100, 40],
@@ -19,15 +19,15 @@ class DashboardAdmin extends Component {
                       "#46BFBD",
                       "#48bf46",
                       "#ff0000",
-                      "#AC64AD"
+                      
                       
                     ],
                     hoverBackgroundColor: [
                       "#ff4000",
-                      "#5AD3D1",
+                      "#46BFBD",
                       "#48bf46",
-                      "#A8B3C5",
-                      "#DA92DB"
+                      "#ff0000",
+                      
                     ]
                   }
                 ]

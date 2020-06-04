@@ -13,19 +13,24 @@ router.route('/add').post((req,res)=>{
      
 });
 
-router.route('/addplayer/:idEquipe').post((req,res)=>{
-   
-     const Joueurs=[
-         {
-         CIN:req.body.CIN,
-         idEquipe:req.params.idEquipe
-         }
-    ]
+router.route('/addplayer/:idEquipe').post(async(req,res)=>{
+  
+     var Joueurs=[]
+     
+    const equipe= await Equipe.create({
+        NomEquipe:"AZli"
+    })
+
+     for(var i in req.body){
+         Joueurs.push({CIN:req.body[i],idEquipe:equipe._id})
+     }
+     console.log(Joueurs);
+
     /* const newJoueur= new*/  
-    Joueur.insertMany(Joueurs)
+    const players=await Joueur.insertMany(Joueurs)
        // newJoueur.save()
-    .then(()=>res.json('players addd'))
-    .catch(err=>res.status(400).json('Error'+err));
+    res.json(players)
+    
 });
 
 router.route('/findplayer').post((req,res)=>{

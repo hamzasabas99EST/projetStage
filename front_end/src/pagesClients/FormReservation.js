@@ -4,11 +4,8 @@ import DatePicker from "react-datepicker";
 import { addDays,subDays } from 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import { Alert } from 'react-bootstrap';
-
-
-
-import '../css/styleForm.css'
 import axios from 'axios';
+import '../css/styleForm.css'
 
 // you will also need the css that comes with bootstrap-daterangepicker
 
@@ -24,9 +21,9 @@ export default class FormReservation extends Component {
             DateDeDebut:'',
             DateDeFin:'',
             isSaved:false,
-            numberReservation:0,
+            HadGame:false,
             alreadyReserve:false,
-            HadGame:false
+            numberReservation:0
         }
         
         this.getCities=this.getCities.bind(this);
@@ -50,7 +47,7 @@ export default class FormReservation extends Component {
     componentWillUpdate=async(nextProps,nextState) =>{
         if (nextState.idCentre !== this.state.idCentre) {
             const idCentre =await nextState.idCentre ;
-            this.getPeriode( idCentre );
+            await this.getPeriode( idCentre );
             await this.getCient(idCentre);
         }
 
@@ -69,16 +66,22 @@ export default class FormReservation extends Component {
                 }) 
             }
             else{
-                    if(res.data.Reservation.length===1 && res.data.Reservation.length<6){
-                            this.setState({
-                            numberReservation:res.data.Reservation.length,
-                            DateDeMatch:addDays(new Date(res.data.Reservation[res.data.Reservation.length-1].DateDeMatch),1)    
-                            
-                        })
-                    }else  if(res.data.Reservation.length===6){
+                if(res.data.Reservation.length===0 ){
+                    this.setState({
+                    numberReservation:res.data.Reservation.length,
+                    
+                })
+                }else if( res.data.Reservation.length<6){
+                        this.setState({
+                        numberReservation:res.data.Reservation.length,
+                        DateDeMatch:addDays(new Date(res.data.Reservation[res.data.Reservation.length-1].DateDeMatch),1)    
+                        
+                    })
+                    
+                } else  if(res.data.Reservation.length===6){
                             this.setState({
                                 alreadyReserve:true,
-                                //DateDeMatch:res.data[0].DateDeMatch
+                                DateDeMatch:new Date(res.data.Reservation[5].DateDeMatch)
                             })
                         
                     }
@@ -94,7 +97,7 @@ export default class FormReservation extends Component {
         .then(res=>{
             this.setState({
                 centres:res.data,
-                
+                NomCentre:res.data[0].NomCentre
             })
         })
         .catch(err=>console.log(err));
@@ -117,7 +120,7 @@ export default class FormReservation extends Component {
             this.setState({
                 DateDeDebut:res.data[0].DateDeDebut,
                 DateDeFin:res.data[0].DateDeFin,
-                DateDeMatch:new Date(res.data[0].DateDeDebut)
+                DateDeMatch:addDays(new Date(res.data[0].DateDeDebut),this.state.numberReservation) 
 
             })
         })
@@ -164,7 +167,6 @@ export default class FormReservation extends Component {
                 if(this.state.numberReservation===6){
                     this.setState({
                         alreadyReserve:true,
-                        DateDeMatch:'',
                         centres:[],
                         HoursGame:[]
                     })
@@ -176,28 +178,28 @@ export default class FormReservation extends Component {
     }
     
     render() {
-        console.log(this.state.alreadyReserve+' '+this.state.numberReservation)
+        console.log(this.state.numberReservation)
         
         return (
             <div  className="container1">
                 {(this.state.isSaved ) &&
                 <Alert  variant="success ">
                      <Alert.Heading>Cher(e) {localStorage.getItem("name")}</Alert.Heading>
-                     Vous avez bien Envoyer cette réservation dans {`la date `+subDays(new Date(this.state.DateDeMatch),1).toLocaleDateString()},
-                      Vous restes {``+6-this.state.numberReservation} reservations 
+                     Vous avez bien envoyé cette réservation le {`la date `+subDays(new Date(this.state.DateDeMatch),1).toLocaleDateString()},
+                      Vous avez encore {``+6-this.state.numberReservation} reservations 
                 </Alert>                    
                 }
                 {(this.state.alreadyReserve || this.state.numberReservation===6) &&  
                 <Alert  variant="danger ">
                      <Alert.Heading>Cher(e) {localStorage.getItem("name")}</Alert.Heading>
-                     Vous n'avez pas le droit d'Envoyer autre réservation
+                     Désolé, Vous n'avez pas le droit d'envoyer une autre réservation pour ce centre 
                     
                 </Alert>                    
                 }
                 {(this.state.HadGame ) &&
                 <Alert  variant="success ">
-                     <Alert.Heading>Cher(e) {localStorage.getItem("name")}</Alert.Heading>
-                     Vous avez un Match cette Semaine Dans cet Centre
+                     <Alert.Heading>Cher(e) {localStorage.getItem("name") } Vous avez un match cette semaine à ce centre :</Alert.Heading>
+             
                 </Alert>                    
                 }
                 <div>
@@ -216,7 +218,7 @@ export default class FormReservation extends Component {
                 </div>
                 
                 <div className="form-group1" >
-                    <label htmlFor="">Date de Match</label>
+                    <label htmlFor="">Date du Match</label>
                     <DatePicker 
                         className="form-control1"  
                         onChange={this.onChangeDate} 
@@ -227,20 +229,20 @@ export default class FormReservation extends Component {
                         disabled={this.state.alreadyReserve || this.state.isSaved || this.state.HadGame}
                         required={true}
                         />
-                </div><br></br>
+                </div>
                 <div className="form-group1">
-                    <label htmlFor="">Heure de Match</label>
+                    <label htmlFor="">Heure du Match</label>
                     <select className="form-control1" onChange={this.onChangeHeure}  disabled={this.state.alreadyReserve || this.state.HadGame}>
                         <option value='' ></option>
                         {this.state.HoursGame.map(HourGame=>(
-                        <option key={HourGame._id} value={HourGame._id}>{HourGame.HeureDebut}:00h-{HourGame.HeureFin}:00h </option>
+                            <option key={HourGame._id} value={HourGame._id}>{HourGame.HeureDebut}:00h-{HourGame.HeureFin}:00h </option>
                         ))}
                     </select>
                 </div>
                
             
             
-                <button type="submit" className="btn-send"  disabled={this.state.alreadyReserve} >Submit</button>
+                <button type="submit" className="btn-send"  disabled={this.state.alreadyReserve} >Envoyer</button>
                 </form>
 
                 </div>

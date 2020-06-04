@@ -1,0 +1,27 @@
+[{
+  "_id": {
+    "$oid": "5ecef3bdb2180a354075ffb6"
+  },
+  "DateDeDebut": {
+    "$date": "2020-06-01T23:00:00Z"
+  },
+  "DateDeFin": {
+    "$date": "2020-06-06T23:00:00Z"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ecef3d4b2180a354075ffb7"
+  },
+  "DateDeDebut": {
+    "$date": "2020-06-01T23:00:00Z"
+  },
+  "DateDeFin": {
+    "$date": "2020-06-06T23:00:00Z"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+}]

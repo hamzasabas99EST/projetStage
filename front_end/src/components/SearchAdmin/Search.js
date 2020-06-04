@@ -65,7 +65,7 @@ export class Search extends Component {
             <div>
                <form className="form-inline" onSubmit={this.onSearch}>
                 <div className="form-group-search">
-                    <label htmlFor=""> Date de Match</label>
+                    <label htmlFor=""> Date du Match</label>
                     <DatePicker 
                         className="form-control-search"  
                         selected={this.state.DateDeMatch}
@@ -76,7 +76,7 @@ export class Search extends Component {
                         />
                 </div>
                <div className="form-group-search">
-                    <label htmlFor="">Heure de Match</label>
+                    <label htmlFor="">Heure du Match</label>
                     <select className="form-control-search" onChange={this.onChangeHeure}>
                         {this.state.HoursGame.map(HourGame=>(
                           <option key={HourGame._id} value={HourGame._id}>{HourGame.HeureDebut}:00h-{HourGame.HeureFin}:00h </option>

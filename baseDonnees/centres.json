@@ -1,0 +1,23 @@
+[{
+  "_id": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  },
+  "NomCentre": "Askijour",
+  "Adresse": "Sokoma, Avenue ouarzazat terrain proximité askijour",
+  "telephone": "+2125243-48389",
+  "idVille": {
+    "$oid": "5e98d866591ee73d9cd2567a"
+  },
+  "nbrTerrains": 2
+},{
+  "_id": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  },
+  "NomCentre": "Azli",
+  "Adresse": "Azli Avenue Essaouira en face usine coca cola",
+  "telephone": "+2125243-41094",
+  "idVille": {
+    "$oid": "5e98d866591ee73d9cd2567a"
+  },
+  "nbrTerrains": 3
+}]

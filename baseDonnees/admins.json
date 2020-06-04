@@ -1,0 +1,24 @@
+
+[{
+  "_id": {
+    "$oid": "5ec9575998a6432bdc10a3a9"
+  },
+  "Nom": "Sabas",
+  "Prenom": "Ali",
+  "username": "ali.s",
+  "motdepass": "123",
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ec9578d98a6432bdc10a3aa"
+  },
+  "Nom": "Guezzaz",
+  "Prenom": "Azzidin",
+  "username": "a.guezzaz",
+  "motdepass": "123",
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+}]

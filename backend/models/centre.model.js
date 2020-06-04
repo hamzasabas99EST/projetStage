@@ -5,6 +5,7 @@ const Schema=mongoose.Schema;
 const CentreSchema=Schema({
     NomCentre:{type:String,required:true,unique:true},
     Adresse:{type:String,required:true},
+    telephone:{type:String,required:true},
     nbrTerrains:{type:Number,require:true},
     idVille:{type: Schema.ObjectId,ref:'Ville'}
     

@@ -42,7 +42,7 @@ class LoginAdmin extends Component {
                 this.props.AdminLoggedIn();
                 localStorage.setItem("idCentre",res.data.admin.idCentre);
                 localStorage.setItem("nameAdmin",res.data.admin.Nom+' '+res.data.admin.Prenom );
-                this.props.history.push('/EspaceAdmin/');
+                this.props.history.push('/EspaceAdmin/Reservations');
             }
         })
         .catch(err=>{
@@ -103,7 +103,7 @@ class LoginAdmin extends Component {
                                         </div>   
                                     </div>
                                     <div className="footer-form">
-                                        <button type="submit" className="btn1" >Login</button>
+                                        <button type="submit" className="btn1" >Connexion</button>
                                     </div>
                                 </form>
                         </div>

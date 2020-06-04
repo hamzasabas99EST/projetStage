@@ -7,16 +7,18 @@ class RulesOfAdmins extends Component {
             <div className="container1">
                 <Alert variant="warning" className="regle" >
                                     
-                <Alert.Heading>Bienvenus Mr, { localStorage.getItem("nameAdmin")} dans votre espace</Alert.Heading>
+                <Alert.Heading>Bienvenus M(Mme), { localStorage.getItem("nameAdmin")} dans votre espace</Alert.Heading>
                       <p>
-                          Vous voulez suiver ces règles pour bien etablir votre réservation
+                        Veuillez bien suivre ces orientations pour une bonne manipulation de vos opérations
                       </p>
                       <hr />
                       <p className="mb-0">
                         <ol >
-                          <li>aaa</li>
-                          <li>aaa</li>
-                          <li>aaa</li>
+                          <li>Vous avez le droit d'accepter autant de réservations  que de terrains disponibles</li>
+                          <li>Toutes les réservations autres que celles précédemment acceptées sont automatiquement refusées par le système</li>
+                          <li>Toutes les réservations autres que celle que vous avez accepté pour un cllent seront refusées</li>
+                          <li>la période de réservation s'étale entre le mardi et le dimance chaque semaine</li>
+                          <li>Chaque client dont la réservation a été acceptée reçoit automatiquement un e-mail le lui rappelant.</li>
                         </ol>
                       </p>
 

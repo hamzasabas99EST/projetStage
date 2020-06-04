@@ -87,7 +87,7 @@ export default class RegisterClient extends Component {
             if(res.data) {
             Swal.fire({
                 icon: 'error',
-                title: 'Oops... Ce client deja exist dans le system!',
+                title: 'Oops... Ce client déja exist dans le système!',
                 text: "Changer l'email ou bien CIN",
                
               })
@@ -247,7 +247,7 @@ export default class RegisterClient extends Component {
                             </div>
                          
                             <div className="footer-form ">
-                                <button type="submit" className="btn1">Register</button>
+                                <button type="submit" className="btn1">Inscription</button>
                             </div>
                         </div>   
                     </div>

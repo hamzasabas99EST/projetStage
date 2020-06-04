@@ -39,7 +39,7 @@ class App extends Component {
 
    this.state={
        ClientLoggedIn :false,
-       games:0
+       AdminLoggedIn:false
       }
   }
 

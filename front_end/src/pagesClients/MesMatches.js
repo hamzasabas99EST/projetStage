@@ -43,12 +43,17 @@ export default class MesMatches extends Component {
 
               <tr>
                 <th ><span>Centre</span></th>
-                <th>Date De Match</th>
-                <th>Date De Heure</th>
-                <th>Status</th>
+                <th>Date Du Match</th>
+                <th>Date Du Heure</th>
+                <th>Statut</th>
               </tr>
             </thead>
             <tbody> 
+              {this.state.reservations.length===0 && 
+                  <tr >
+                    <td colSpan="4">aucun match</td>
+                 </tr>
+              }
               {this.state.reservations.map(reservation=>(
                   <tr key={reservation._id}>
                     <td>{reservation.idCentre.NomCentre}</td>

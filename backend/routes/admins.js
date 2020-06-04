@@ -4,8 +4,10 @@ let Period=require('../models/period.model');
 let Reservation=require('../models/reservation.model')
 let Centre=require('../models/centre.model')
 let Hour=require('../models/hour.model');
+var nodemailer=require('nodemailer')
 
 
+//function ajout d'un admin
 router.route('/addAdmin').post((req,res)=>{
     const Nom=req.body.Nom;
     const Prenom=req.body.Prenom;
@@ -21,6 +23,7 @@ router.route('/addAdmin').post((req,res)=>{
     .catch(err=>res.status(400).json('Error'+err));
 });
 
+//function login d'admin
 router.route('/loginAdmin').post(async(req,res)=>{
     const username=req.body.username;
     const motdepass=req.body.motdepass;
@@ -42,6 +45,8 @@ router.route('/loginAdmin').post(async(req,res)=>{
 
 });
 
+
+//function d'ajout periode des réservations
 router.route('/addPeriod').post((req,res)=>{
     const DateDeDebut=req.body.DateDeDebut;
     const DateDeFin=req.body.DateDeFin;
@@ -66,19 +71,29 @@ router.route('/findPeriod/:idCentre').get((req,res)=>{
 
 
 router.route('/findReservationbyCentre/:idCentre').get(async(req,res)=>{
+  try{
   //Cette fonction aide admin pour trouver les reservations evoyées 
-    const idCentre=req.params.idCentre;
+    const idCentre=await req.params.idCentre;
     const centre=await Centre.findById(idCentre);
     const nbr=await centre.nbrTerrains;
     const idHourGame=await Hour.find().sort({_id:1});
     const period=await Period.find({idCentre:idCentre}).sort({_id:-1}).limit(1);
     const accepter=await Reservation.find({$and:[{idCentre:idCentre},{"DateDeMatch":period[0].DateDeDebut},{"idHourGame":idHourGame[0]._id}]})
-              .where('Status').in(['Accepter'])
+              .where('Status').in(['Acceptée'])
               .sort({DateDeMatch:1,idHourGame:1})
               .populate("idHourGame")
               .populate('idClient')
               .populate("idCentre") 
               .limit(nbr);
+    
+  if(accepter.length===nbr){
+    const reerawait=await Reservation.updateMany(
+      {$and:[{"idCentre":idCentre},{"idHourGame":idHourGame[0]._id},{"DateDeMatch":period[0].DateDeDebut},{Status:['En attente','Modifiée']}]}
+      ,{$set:{Status:'Refusée'} }
+  )
+    }
+
+
     const reer= await Reservation.find({$and:[{idCentre:idCentre},{"DateDeMatch":period[0].DateDeDebut},{"idHourGame":idHourGame[0]._id}]})
 
                     /*.where('idCentre').equals(idCentre)
@@ -88,35 +103,51 @@ router.route('/findReservationbyCentre/:idCentre').get(async(req,res)=>{
                     .populate("idHourGame")
                     .populate('idClient')
                     .populate("idCentre") 
-                   .limit(nbr*2);
-         
+                  
    return res.json({reservations:reer,numberAccept:accepter.length,terrain:nbr});
+  }
+  catch(e){
+   res.status(400).json("err")
+
+  }
 });
 router.route('/ReservationsSearch/:idCentre/:q1/:q2').get(async(req,res)=>{
+  try{
   const DateDeMatch= await req.params.q1;
   const idHourGame=await req.params.q2;
   const idCentre=req.params.idCentre;
   const centre=await Centre.findById(idCentre);
   const nbr=await centre.nbrTerrains;
   const accepter=await Reservation.find({$and:[{"idCentre":idCentre},{"idHourGame":idHourGame},{"DateDeMatch":DateDeMatch}]})
-                  .where('Status').in(['Accepter'])
+                  .where('Status').in(['Acceptée'])
                   .sort({DateDeMatch:1,idHourGame:1})
                   .populate("idHourGame")
                   .populate('idClient')
                   .populate("idCentre") 
                   .limit(nbr);
-  const reer=await Reservation.find({$and:[{"idCentre":idCentre},{"idHourGame":idHourGame},{"DateDeMatch":DateDeMatch}]})
-                  .sort({DateDeMatch:1,idHourGame:1}).populate("idHourGame")
-                  .populate('idClient').populate("idCentre").limit(nbr*2);/*find({idCentre:idCentre}).sort({DateDeMatch:1}).populate("idCentre")*/ 
+  
+  if(accepter.length===nbr){
+    const reerawait=await Reservation.updateMany(
+      {$and:[{"idCentre":idCentre},{"idHourGame":idHourGame},{"DateDeMatch":DateDeMatch},{Status:['En attente','Modifiée']}]}
+      ,{$set:{Status:'Refusée'} }
+  )
 
-                  
+}
+    
+  const reer=await Reservation.find({$and:[{"idCentre":idCentre},{"idHourGame":idHourGame},{"DateDeMatch":DateDeMatch}]})
+  .sort({DateDeMatch:1,idHourGame:1}).populate("idHourGame")
+  .populate('idClient').populate("idCentre");/*find({idCentre:idCentre}).sort({DateDeMatch:1}).populate("idCentre")*/ 
 
       return    res.json({reservations:reer,numberAccept:accepter.length,terrain:nbr});
-
+  }
+  catch(e){
+    res.status(400).json("error")
+  }
     
 });
 
 router.route('/Rejectall/:idCentre/:q1/:q2').post(async(req,res)=>{
+  try{
   const DateDeMatch= await req.params.q1;
   const idHourGame=await req.params.q2;
   const idCentre=await req.params.idCentre;
@@ -126,32 +157,84 @@ router.route('/Rejectall/:idCentre/:q1/:q2').post(async(req,res)=>{
                       {idCentre:idCentre},
                       {"DateDeMatch":DateDeMatch},
                       {"idHourGame":idHourGame},
-                      {Status:['En attente','Updated']}
+                      {Status:['En attente','Modifiée']}
                     ]}
-                    ,{$set:{Status:'Refuser'} }
+                    ,{$set:{Status:'Refusée'} }
                 )
 
                   
 
       return    res.json(reer);
 
-    
+    }
+    catch(e){
+      res.status(400).json("error")
+    }
+      
 });
 
 router.route('/Accept/:id').post(async (req,res)=>{
-  const updated=await Reservation.findByIdAndUpdate({_id:req.params.id},{Status:'Accepter'},{ upsert: true })
-  const period=await Period.find({idCentre:updated.idCentre}).sort({_id:-1}).limit(1);
+try { 
+  const updated=await Reservation.findByIdAndUpdate({_id:req.params.id},{Status:'Acceptée'},{ upsert: true })
+                                .populate("idClient").populate("idCentre").populate("idHourGame");
+
+  const period=await Period.find({idCentre:updated.idCentre._id}).sort({_id:-1}).limit(1);
  
   const RefuseOtherReservations=await Reservation.updateMany(
                               {
                                 $and:[
-                                {idClient:updated.idClient},
-                                {idCentre:updated.idCentre},
+                                {idClient:updated.idClient._id},
+                                {idCentre:updated.idCentre._id},
                                 {DateDeMatch: { $gte: period[0].DateDeDebut, $lte: period[0].DateDeFin }},
-                                {Status:['En attente','Updated']}
+                                {Status:['En attente','Modifiée']}
                               ] 
                             }
-                              ,{$set:{Status:'Refuser'} }
+                              ,{$set:{Status:'Refusée'} }
+                              )
+      var transporter=await nodemailer.createTransport({
+        service:'gmail',
+        secure: false,
+        port: 25,
+        tls: {
+          rejectUnauthorized: false
+      },
+        auth:{
+          user:'thewolves.matchs@gmail.com',
+          pass:'BLACKwolf99 '
+        }
+      });
+      var mailOption=await {
+        from:'thewolves.matchs@gmail.com',
+        to:updated.idClient.email,
+        subject:'Un match',
+        text:`Cher (e) `+updated.idClient.Nom+` `+updated.idClient.Prenom+` on vous rappelle que vous avez un match le `+
+              new Date(updated.DateDeMatch).toLocaleDateString()
+             +` à `+updated.idHourGame.HeureDebut+`:00h `+` au centre `+updated.idCentre.NomCentre
+      
+      }
+      transporter.sendMail(mailOption,function(error,info){
+        if(error){
+          console.log("fin ghadi"+error)
+        }else console.log("L'email est envoyé")
+      })
+
+}
+
+catch(e){
+  res.status(400).json("error")
+}
+  
+});
+
+
+router.route('/UpdateAll').post(async (req,res)=>{
+ 
+/* const RefuseOtherReservations=await Reservation.deleteMany(
+                               
+    )*/
+  const RefuseOtherReservations=await Reservation.updateMany(
+                              {$set:{Status:'En attente'},
+                            idHourGame:'5eac1c529c0f332f04a9ff4e' }
                               )
                              
 
@@ -160,7 +243,7 @@ router.route('/Accept/:id').post(async (req,res)=>{
 });
 
 router.route('/Reject/:id').post(async (req,res)=>{
-  const updated=await Reservation.findByIdAndUpdate({_id:req.params.id},{Status:'Refuser'},{ upsert: true })
+  const updated=await Reservation.findByIdAndUpdate({_id:req.params.id},{Status:'Refusée'},{ upsert: true })
   res.json(updated)
 });
 
@@ -174,7 +257,7 @@ router.route('/GamesOfWeek/:idCentre').get(async(req,res)=>{
     const period=await Period.find({idCentre:idCentre}).sort({_id:-1}).limit(1);
     const DateDeDebut=await period[0].DateDeDebut;
     const reer=await Reservation.find({$and:[{idCentre:idCentre},{"DateDeMatch":DateDeDebut},{"idHourGame":idHourGame[0]._id}]})
-                    .where('Status').in(['Accepter'])
+                    .where('Status').in(['Acceptée'])
                    // .sort({DateDeMatch:1,idHourGame:1})
                     .populate("idHourGame")
                     .populate('idClient')
@@ -182,11 +265,12 @@ router.route('/GamesOfWeek/:idCentre').get(async(req,res)=>{
                     .limit(nbr);
     res.json(reer);
   }catch(e){
-    console.log(e);
-  }
+    res.status(400).json("err")
+ }
 });
 
 router.route('/GamesSearch/:idCentre/:q1/:q2').get(async(req,res)=>{
+ try{
   const DateDeMatch= await req.params.q1;
   const idHourGame=await req.params.q2;
   const idCentre=req.params.idCentre;
@@ -194,19 +278,48 @@ router.route('/GamesSearch/:idCentre/:q1/:q2').get(async(req,res)=>{
   const nbr=await centre.nbrTerrains
   const reer=await Reservation.find({$and:[{"idCentre":idCentre},{"idHourGame":idHourGame},{"DateDeMatch":DateDeMatch}]})
                    // .sort({DateDeMatch:1,idHourGame:1})
-                    .where('Status').in(['Accepter'])
+                    .where('Status').in(['Acceptée'])
                     .populate("idHourGame")
                     .populate('idClient')
                     .populate("idCentre")
                     .limit(nbr);/*find({idCentre:idCentre}).sort({DateDeMatch:1}).populate("idCentre")*/ 
     return  res.json(reer);
-    
+ }
+ catch(e){
+   res.status(400).json("err")
+ }  
 });
 
 
-/*router.route('/sendEmail').post(async(req,res)=>{
+router.route('/sendEmail').post(async(req,res)=>{
     // config for mailserver and mail, input your data
-const config = {
+    var transporter=nodemailer.createTransport({
+      service:'gmail',
+      secure: false,
+      port: 25,
+      tls: {
+        rejectUnauthorized: false
+    },
+      auth:{
+        user:'hamzasabas99@gmail.com',
+        pass:'blackwolf99'
+      }
+    });
+    var mailOption={
+      from:'hamzasabas99@gmail.com',
+      to:'naimmed70@gmail.com',
+      subject:'ha kanjrbu',
+      text:`lah ihfdek yk nta hani`
+    }
+    transporter.sendMail(mailOption,function(error,info){
+      if(error){
+        res.json("fin ghadi"+error)
+      }else res.json(
+        "safi l amana rah wslat   "
+      )
+    })
+
+    /*const config = {
     mailserver: {
       host: 'smtp.ethereal.email',
       port: 587,
@@ -236,7 +349,8 @@ const config = {
   };
   
   sendMail(config).catch(console.error);
-});*/
+  */
+});
 
 router.route('/StatistiqueOfCentre/:idCentre').get(async (req,res)=>{
   try{
@@ -248,8 +362,8 @@ router.route('/StatistiqueOfCentre/:idCentre').get(async (req,res)=>{
       const reservations=await Reservation.find({idCentre:req.params.idCentre});
       for(let i=0;i<reservations.length;i++){
           if(reservations[i].Status==="En attente") reservation_enAttente++;
-          else if(reservations[i].Status==="Updated") reservation_Updated++;
-          else if(reservations[i].Status==="Accepter") reservation_accepter++; 
+          else if(reservations[i].Status==="Modifiée") reservation_Updated++;
+          else if(reservations[i].Status==="Acceptée") reservation_accepter++; 
           else reservation_refuser++;
       }
   var Statistique=await {
@@ -261,7 +375,7 @@ router.route('/StatistiqueOfCentre/:idCentre').get(async (req,res)=>{
 
   res.json(Statistique)
   }catch(e){
-      console.log(e);
+    res.status(400).json("err")
   }
 
 });

@@ -2,11 +2,13 @@ const express=require('express');
 const app=express();
 const cors = require('cors');
 const path = require('path');
+const boydParser=require('body-parser')
 
 
 app.use(express.json());
 const mongoose=require('mongoose'); 
 app.use(cors());
+app.use(boydParser.json())
 app.use(express.static(path.join(__dirname,'./build')));
 
 

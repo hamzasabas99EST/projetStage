@@ -10,8 +10,8 @@ export default class Navbar extends Component {
         <header className="nav-header">
             <nav>
                 <ul className="nav__links">
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/About"> About</Link></li> 
+                <li><Link to="/">Acceuil</Link></li>
+                <li><Link to="/About"> À propos de nous</Link></li> 
                 <li><Link to="/Services">Services</Link></li>
                 <li><Link to="/Reserver"><button className="navbar-button">Réserver</button></Link></li> 
                 </ul>

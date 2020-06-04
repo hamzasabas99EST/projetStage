@@ -1,0 +1,79 @@
+[{
+  "_id": {
+    "$oid": "5ec7dc40c52c0c043c196102"
+  },
+  "CIN": "EE676313",
+  "Nom": "Sabas",
+  "Prenom": "Hamza",
+  "telephone": "0653072695",
+  "email": "hamzasabas99@gmail.com",
+  "motdepass": "blackwolf99",
+  "idVille": {
+    "$oid": "5e98d866591ee73d9cd2567a"
+  }
+},{
+  "_id": {
+    "$oid": "5ec7dcb5c52c0c043c19610a"
+  },
+  "CIN": "EE147852",
+  "Nom": "Bouchti",
+  "Prenom": "Amine",
+  "telephone": "06666708814",
+  "email": "a.boucti@gmail.com",
+  "motdepass": "123654",
+  "idVille": {
+    "$oid": "5e98d866591ee73d9cd2567a"
+  }
+},{
+  "_id": {
+    "$oid": "5ec98d14f61e082a0c38a37a"
+  },
+  "CIN": "00000000",
+  "Nom": "Menguit",
+  "Prenom": "Soukaina",
+  "telephone": "0000",
+  "email": "s.menguit@gmail.com",
+  "motdepass": "123456",
+  "idVille": {
+    "$oid": "5e98d866591ee73d9cd2567a"
+  }
+},{
+  "_id": {
+    "$oid": "5ecc59df1a359f29c87c6de5"
+  },
+  "CIN": "EE98789",
+  "Nom": "charra",
+  "Prenom": "zakaria",
+  "telephone": "06989898",
+  "email": "ch.zakaria@gmail.com",
+  "motdepass": "147852",
+  "idVille": {
+    "$oid": "5e98d866591ee73d9cd2567a"
+  }
+},{
+  "_id": {
+    "$oid": "5ecdb8d7dfb6e43484f526d9"
+  },
+  "CIN": "EE747971",
+  "Nom": "khadiri",
+  "Prenom": "anas",
+  "telephone": "0610302175",
+  "email": "anas.khadiri@gmail.com",
+  "motdepass": "123456",
+  "idVille": {
+    "$oid": "5e98d866591ee73d9cd2567a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "CIN": "oh1452",
+  "Nom": "Soulaimane",
+  "Prenom": "Chentouk",
+  "telephone": "0605070104",
+  "email": "s.chentouk@gmail.com",
+  "motdepass": "123456789",
+  "idVille": {
+    "$oid": "5e98d866591ee73d9cd2567a"
+  }
+}]

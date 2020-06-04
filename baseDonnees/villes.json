@@ -1,0 +1,12 @@
+[{
+  "_id": {
+    "$oid": "5e98d866591ee73d9cd2567a"
+  },
+  "NomVille": "Marrakech",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5e9e25a0335d431078aa49c5"
+  },
+  "NomVille": "Essaouira"
+}]

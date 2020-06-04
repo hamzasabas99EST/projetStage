@@ -29,7 +29,7 @@ export default class UpdateReservation extends Component {
                 idHourGame:res.data.idHourGame,
                 Status:res.data.Status
             })
-            if(this.state.Status==="Updated" || this.state.Status==="Refuser" ){
+            if(this.state.Status==="Modifiée" /*|| this.state.Status==="Refusée"*/ ){
                 this.setState({
                     disabled:true
                 })
@@ -37,8 +37,7 @@ export default class UpdateReservation extends Component {
     
         })
 
-       
-
+        
         axios.get(`http://localhost:9017/reservations/AllHours/`)
         .then(res=>{
             this.setState({
@@ -52,13 +51,15 @@ export default class UpdateReservation extends Component {
         this.setState({
             idHourGame:e.target.value
         })
-        }
+    }
+
+  
     onSend=(e)=>{
         e.preventDefault();
        const idHourGame=this.state.idHourGame;
-        axios.post(`http://localhost:9017/reservations/UpdateByClient/`+this.props.match.params.id+`/`+idHourGame)
-        .then(res=>{
-            if(res.data.length!==1){
+        axios.post(`http://localhost:9017/reservations/UpdateByClient/`+this.props.match.params.id,{idHourGame})
+        .then(res=>{console.log(res.data)
+            if(res.data.Status==="Modifiée"){
                 this.setState({
                    disabled:true 
                 })
@@ -69,11 +70,15 @@ export default class UpdateReservation extends Component {
     render() {
         return (
             <div className="container1">
-             {this.state.disabled &&  
-             <Alert  variant="danger">
-                   Cher(e) {localStorage.getItem("name")} vous avez bien modifier cette réservation
-                   c'est vous return autre fois vous n'avez pas le droit de remodifier 
-            </Alert>                    
+             {this.state.disabled ? 
+             <Alert  variant="success">
+                   Cher(e) {localStorage.getItem("name")} cette réservation a été  bien modifiée, 
+                   vous ne pourrez plus la remodifier une fois de plus.
+            </Alert>
+            :
+            <Alert  variant="danger">
+                   Cher(e) {localStorage.getItem("name")} Vous besoin de changer seulement l'heure du match 
+            </Alert>                     
             }
             <div >
                 <form className="form1" onSubmit={this.onSend}>
@@ -83,26 +88,25 @@ export default class UpdateReservation extends Component {
                 </div>
                 
                 <div className="form-group1" >
-                    <label htmlFor="">Date de Match</label>
+                    <label htmlFor="">Date du Match</label>
                     <DatePicker 
                         className="form-control1"  
                         selected={new Date(this.state.DateDeMatch)}
                         disabled={true}
                         />
-                </div><br></br>
+                </div>
                 <div className="form-group1">
-                    <label htmlFor="">Heure de Match</label>
+                    <label htmlFor="">Heure du Match</label>
                     <select className="form-control1"  onChange={this.onChangeHeure} value={this.state.idHourGame} disabled={this.state.disabled}>
                         {this.state.HoursGame.map(HourGame=>(
                         <option key={HourGame._id} value={HourGame._id}>{HourGame.HeureDebut}:00h-{HourGame.HeureFin}:00h </option>
                         ))}
                     </select>
-                    
                 </div>
                
             
             
-                <button type="submit" className="btn-send" disabled={this.state.disabled} >Submit</button>
+                <button type="submit" className="btn-send" disabled={this.state.disabled} >Modifier</button>
                   </form>
 
             </div>

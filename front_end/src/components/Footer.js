@@ -21,18 +21,18 @@ export default class Footer extends Component {
                             </p>
                         </div>
                         <div className="footer-items">
-                            <h1>Quick links</h1>
+                            <h1>Menu</h1>
                             <div className="border"></div>
                             <ul className="links">
-                                <Link to="/"><li>Home</li></Link>
-                                <Link to="/About"><li>About</li></Link>
+                                <Link to="/"><li>Acceuil</li></Link>
+                                <Link to="/About"><li>À propos de nous</li></Link>
                                 <Link to="/Services"><li>Services</li></Link>
                                 <Link to="/Reserver"><li>Réserver</li></Link>
                             </ul>
                         </div>
                     
                         <div className="footer-items">
-                            <h1>Contact us</h1>
+                            <h1>Contacter Nous</h1>
                             <div className="border"></div>
                             <ul className="contact">
                                <li><FontAwesomeIcon icon={faMap}  className="i"/> Marrakech 616 azli</li>

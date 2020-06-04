@@ -95,7 +95,7 @@ export default class FormPeriode extends Component {
                     placeholderText="Selectionner date de Debut"
                     filterDate={this.isWeekday}
                     />
-            </div><br></br>
+            </div>
             <div className="form-group1" >
                 <label htmlFor="">Date de Fin</label>
                 <DatePicker 
@@ -107,7 +107,7 @@ export default class FormPeriode extends Component {
             </div><br></br>
            
         
-            <button type="submit" className="btn-send" >Submit</button>
+            <button type="submit" className="btn-send" >Ajouter</button>
             </form>
 
             </div>

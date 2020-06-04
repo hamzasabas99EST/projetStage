@@ -4,6 +4,7 @@ let Hour=require('../models/hour.model');
 let Period=require('../models/period.model');
 let Centre=require('../models/centre.model');
 
+//cette fonction affiche tous les heures
 router.route('/allHours').get(async (req,res)=>{
     Hour.find()
     .then(hours=>res.json(hours))
@@ -11,18 +12,19 @@ router.route('/allHours').get(async (req,res)=>{
  });
  
 
-router.route('/all').get((req,res)=>{
+/*router.route('/all').get((req,res)=>{
    Reservation.find().populate("idCentre").populate("idClient").populate("idHourGame")
    .then(reservations=>res.json(reservations))
     .catch(err=>res.json(err))
-});
+});*/
 
+//cette fonction verifie si le client deja envoyer des réservations dans un centre
 router.route('/client/:idClient/:idCentre').get(async (req,res)=>{
     
      try{
      const idClient=req.params.idClient;
      const idCentre=await req.params.idCentre;
-     const period=await Period.find({idCentre:idCentre}).sort({_id:-1}).limit(2).exec();
+     const period=await Period.find({idCentre:idCentre}).sort({_id:-1}).limit(1);
      const DateDeDebut=await period[0].DateDeDebut;
      const DateDeFin=await period[0].DateDeFin;
      const reer=await Reservation.find({$and:[{idClient:idClient},{idCentre:idCentre},
@@ -34,7 +36,7 @@ router.route('/client/:idClient/:idCentre').get(async (req,res)=>{
     let hadGame=await false;
 
     for(let i=0;i<reer.length;i++){
-        if(reer[i].Status==="Accepter") { 
+        if(reer[i].Status==="Acceptée") { 
             hadGame=true
         };    
     }
@@ -45,6 +47,7 @@ router.route('/client/:idClient/:idCentre').get(async (req,res)=>{
     
      
  });
+ //cette fonction filtre les réservations d'un client par centre
  router.route('/SearchByclients/:idClient/:q').get(async (req,res)=>{
     try{
     const idClient=req.params.idClient;
@@ -54,7 +57,7 @@ router.route('/client/:idClient/:idCentre').get(async (req,res)=>{
     const DateDeFin=await period[0].DateDeFin;
     const reservations=await Reservation.find({$and:[{idClient:idClient},{idCentre:id_Centre},
                     {"DateDeMatch": { $gte: DateDeDebut, $lte: DateDeFin }}]})
-                    .where('Status').in(['En attente','Updated','Refuser'])
+                    .where('Status').in(['En attente','Modifée','Refusée'])
                     .sort({DateDeMatch:1,idHourGame:1})
                     .populate("idHourGame")
                     .populate('idClient')
@@ -65,6 +68,9 @@ router.route('/client/:idClient/:idCentre').get(async (req,res)=>{
     }
      
  });
+
+  //cette fonction affiche les réservations d'un client par periode
+
 router.route('/byclients/:idClient/:idVille').get(async (req,res)=>{
    try{
     const idClient=req.params.idClient;
@@ -76,7 +82,7 @@ router.route('/byclients/:idClient/:idVille').get(async (req,res)=>{
     const DateDeFin=await period[0].DateDeFin;
     const reservations=await Reservation.find({$and:[{idClient:idClient},{idCentre:id_Centre},
         {"DateDeMatch": { $gte: DateDeDebut, $lte: DateDeFin }}]})
-        .where('Status').in(['En attente','Updated','Refuser'])
+        .where('Status').in(['En attente','Modifiée','Refusée'])
         .sort({DateDeMatch:1,idHourGame:1})
         .populate("idHourGame")
         .populate('idClient')
@@ -91,6 +97,8 @@ router.route('/byclients/:idClient/:idVille').get(async (req,res)=>{
 
  });
 
+   //cette fonction affiche les matches d'un client par periode
+
  router.route('/GamesOfClients/:idClient/:idVille').get(async (req,res)=>{
     try{
     const idVille=await req.params.idVille;
@@ -101,7 +109,7 @@ router.route('/byclients/:idClient/:idVille').get(async (req,res)=>{
     const DateDeFin=await period[0].DateDeFin;
     const reservations=await Reservation.find({$and:[{idClient:req.params.idClient},{idCentre:id_Centre},
                      {"DateDeMatch": { $gte: DateDeDebut, $lte: DateDeFin }}]})
-                     .where('Status').in(['Accepter'])
+                     .where('Status').in(['Acceptée'])
                     // .sort({idCentre:1,DateDeMatch:1,idHourGame:1})
                      .populate("idCentre")
                      .populate("idHourGame")
@@ -114,6 +122,10 @@ router.route('/byclients/:idClient/:idVille').get(async (req,res)=>{
     }
  
  });
+
+  //cette fonction filtre les matches d'un client par centre
+
+
  router.route('/SearchByclientsGames/:idClient/:q').get(async (req,res)=>{
      try{
      const idClient=req.params.idClient;
@@ -123,7 +135,7 @@ router.route('/byclients/:idClient/:idVille').get(async (req,res)=>{
      const DateDeFin=await period[0].DateDeFin;
      const reservations=await Reservation.find({$and:[{idClient:idClient},{idCentre:id_Centre},
         {"DateDeMatch": { $gte: DateDeDebut, $lte: DateDeFin }}]})
-        .where('Status').in(['Accepter'])
+        .where('Status').in(['Acceptée'])
         .sort({idCentre:1,DateDeMatch:1,idHourGame:1})
         .populate("idCentre").populate("idHourGame")
         .limit(1);
@@ -135,6 +147,8 @@ router.route('/byclients/:idClient/:idVille').get(async (req,res)=>{
 
   });
 
+
+//cette function permet d'envoyer une réservation par client
 router.route('/addReservation').post((req,res)=>{
     const DateDeMatch=req.body.DateDeMatch;
     const idHourGame=req.body.idHourGame;
@@ -149,19 +163,31 @@ router.route('/addReservation').post((req,res)=>{
     .catch(err=>res.status(400).json('Error'+err));
 });
 
-router.route('/UpdateByClient/:id/:idHourGame').post((req,res)=>{
+
+//Cette fonction permet au client de modifier une réservaton une seule fois
+router.route('/UpdateByClient/:id').post(async (req,res)=>{
+    try{
+    const HourGame=await req.body.idHourGame
+    const reserv=await Reservation.findById(req.params.id);
+    if(HourGame!=reserv.idHourGame) {
+        Reservation.findByIdAndUpdate(req.params.id)
+            .then(reservation=>{
+                reservation.idHourGame=HourGame;
+                reservation.Status="Modifiée";
+                reservation.save();
+                res.json(reservation)
+             })
+    }
     
-    Reservation.findById(req.params.id)
-         .then(reservation=>{
-             reservation.idHourGame=req.params.idHourGame;
-             reservation.Status="Updated";
-             reservation.save();
-            })
-            
-        .then(reservation =>(res.json(reservation)))
-         .catch(err=>res.status(400).json('Error : '+err))
+    }
+    catch(e){
+        res.status(400).json('Error'+e)
+    }
+  
 });
 
+
+ //cette fonction permet d'annuler une réservation d'un client
 router.route('/annuler/:id').delete((req,res)=>{
     
     Reservation.findByIdAndDelete({_id:req.params.id})
@@ -169,13 +195,14 @@ router.route('/annuler/:id').delete((req,res)=>{
          .catch(err=>res.status(400).json('Error : '+err))
 });
 
+//cete fonction permet de récuperer une réservation par _id 
 router.route('/find/:id').get((req,res)=>{
-    
     
     Reservation.findById({_id:req.params.id}).populate("idCentre")
          .then(reservation=>res.json(reservation))
          .catch(err=>res.status(400).json('Error : '+err))
 });
+
 
 router.route('/addHour').post((req,res)=>{
     const HeureDebut=req.body.HeureDebut;
@@ -189,6 +216,7 @@ router.route('/addHour').post((req,res)=>{
     .catch(err=>res.status(400).json('Error'+err));
 });
 
+//Cette fonction affiche les statistique d'un client dans les centres
 router.route('/StatistiqueOfClients/:idClient').get(async (req,res)=>{
     try{
         let reservation_enAttente=await 0; 
@@ -199,8 +227,8 @@ router.route('/StatistiqueOfClients/:idClient').get(async (req,res)=>{
         const reservations=await Reservation.find({idClient:req.params.idClient});
         for(let i=0;i<reservations.length;i++){
             if(reservations[i].Status==="En attente") reservation_enAttente++;
-            else if(reservations[i].Status==="Updated") reservation_Updated++;
-            else if(reservations[i].Status==="Accepter") reservation_accepter++; 
+            else if(reservations[i].Status==="Modifiée") reservation_Updated++;
+            else if(reservations[i].Status==="Acceptée") reservation_accepter++; 
             else reservation_refuser++;
         }
     var Statistique=await {

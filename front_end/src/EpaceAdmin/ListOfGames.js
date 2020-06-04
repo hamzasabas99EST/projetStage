@@ -48,15 +48,20 @@ class ListOfGames extends Component {
                     <th  data-th="Driver details">CIN</th>
                     <th colSpan="2">Nom et prenom </th>
                     <th>Telephone</th>
-                    <th>Date De Heure</th>
-                    <th>Heure De Match</th>
-                    <th>Status</th>
+                    <th>Date Du Match</th>
+                    <th>Heure Du Match</th>
+                    <th>Statut</th>
                    
                   </tr>
                 </thead>
                 <tbody> 
+                  {this.state.reservations.length===0 && 
+                      <tr >
+                        <td colSpan="8">aucun match</td>
+                      </tr>
+                  }
                   {this.state.reservations.map((reservation,index)=>(
-                      <tr key={reservation._id}>
+                      <tr key={index}>
                         <td>{index+1}</td>
                         <td>{reservation.idClient.CIN}</td>
                         <td>{reservation.idClient.Nom}</td> <td>{reservation.idClient.Prenom}</td>

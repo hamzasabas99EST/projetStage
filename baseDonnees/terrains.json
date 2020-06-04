@@ -1,0 +1,93 @@
+[{
+  "_id": {
+    "$oid": "5e98e626a0f2a73e5cb7fc0e"
+  },
+  "Status": "libre",
+  "idCentre": [
+    {
+      "$oid": "5e98dabf911f743a40bd11f7"
+    }
+  ],
+  "NumeroTerrain": 6,
+  "typeTerrain": "foot7",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5e98e6d43963c00c30a93822"
+  },
+  "Status": "libre",
+  "idCentre": [
+    {
+      "$oid": "5e98dabf911f743a40bd11f7"
+    }
+  ],
+  "NumeroTerrain": 7,
+  "typeTerrain": "foot7",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5e99ec1a46ea6c0540139cb6"
+  },
+  "Status": "libre",
+  "NumeroTerrain": 11,
+  "typeTerrain": "f5",
+  "idCentre": {
+    "$oid": "5e98dabf911f743a40bd11f7"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5e9a28dc1bd9720fd48605fd"
+  },
+  "Status": "libre",
+  "NumeroTerrain": 70,
+  "typeTerrain": "foot7",
+  "idCentre": {
+    "$oid": "5e98dabf911f743a40bd11f7"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5e9a290a1bd9720fd48605ff"
+  },
+  "Status": "libre",
+  "NumeroTerrain": 78,
+  "typeTerrain": "foot7",
+  "idCentre": {
+    "$oid": "5e98dabf911f743a40bd11f7"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5e9a2a6e1bd9720fd4860600"
+  },
+  "Status": "libre",
+  "NumeroTerrain": 178,
+  "typeTerrain": "foot7",
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5e9a2a8b1bd9720fd4860602"
+  },
+  "Status": "libre",
+  "NumeroTerrain": 1078,
+  "typeTerrain": "foot7",
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5e9a2bd36ee06741e436b29d"
+  },
+  "Status": "libre",
+  "NumeroTerrain": 0,
+  "typeTerrain": "foot7",
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  },
+  "__v": 0
+}]

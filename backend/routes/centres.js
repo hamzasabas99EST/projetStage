@@ -72,7 +72,7 @@ router.route('/addTerrain').post((req,res)=>{
 router.route('/findCentres/:idVille').get((req,res)=>{
     const idVille=req.params.idVille;
     
-    Centre.find({idVille:idVille})
+    Centre.find({idVille:idVille}).populate('idVille')
     .then(centres=>res.send(centres))
     .catch(err=>res.status(400).json('Error'+err));
 });

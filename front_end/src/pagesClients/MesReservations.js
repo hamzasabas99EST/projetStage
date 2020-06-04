@@ -35,13 +35,13 @@ componentDidMount=()=>{
   CanceledReservation(id){
    /* */
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Etes-vous sûr ?',
+      text: "Vous ne pourrez pas revenir en arrière!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Oui, Supprimer!'
     }).then((result) => {
       if (result.value) {
          axios.delete(`http://localhost:9017/reservations/annuler/`+id)
@@ -51,8 +51,8 @@ componentDidMount=()=>{
           reservations:this.state.reservations.filter(el=>el._id!==id)
         })
         Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
+          'Votre réservation',
+          'a été supprimé.',
           'success'
         )
       }
@@ -78,23 +78,28 @@ SearchReservations=(Centre)=>{
           <SearchClient SearchReservations={this.SearchReservations}/>
           <table className="responstable">
             <thead>
-
               <tr>
                 <th data-th="Driver details"><span>Centre</span></th>
-                <th>Date De Match</th>
-                <th>Heure  De Match</th>
-                <th>Status</th>
+                <th>Date Du Match</th>
+                <th>Heure Du Match</th>
+                <th>Statut</th>
                 <th colSpan="2">Action</th>
               </tr>
             </thead>
             <tbody> 
+            {this.state.reservations.length===0 &&
+                    <tr>
+                      <td ColSpan="8"> aucune réservation </td>
+                    </tr>
+                        
+              }
               {this.state.reservations.map((reservation)=>(
                   <tr key={reservation._id}>
                     <td>{reservation.idCentre.NomCentre} </td>
                     <td>{new Date(reservation.DateDeMatch).toLocaleDateString()}</td>
                     <td>{reservation.idHourGame.HeureDebut}:00h -> {reservation.idHourGame.HeureFin}:00h</td>
                     <td >
-                      {reservation.Status==='Refuser'
+                      {reservation.Status==='Refusée'
                        ? <span className="badge badge-danger  px-md-4">{reservation.Status}</span>
                        : <span className="badge badge-warning  px-md-4">{reservation.Status}</span>
                       }
@@ -102,10 +107,12 @@ SearchReservations=(Centre)=>{
                     <td >
                       {reservation.Status==='En attente'  && 
                        <Link to="#" className="btn btn-danger" onClick={()=>this.CanceledReservation(reservation._id)} data-toggle="tooltip" title="Annuler La réservation"><FontAwesomeIcon icon={faWindowClose}/></Link> 
-                    }
+                      }
                        </td>
                     <td>
+                      {reservation.Status!=='Refusée'  && 
                       <Link className='btn btn-primary ' to={"/EspaceClient/UpdateReservation/"+reservation._id} data-toggle="tooltip" title="Modifier La réservation" ><FontAwesomeIcon icon={faEdit}/></Link>
+                      }
                     </td>
 
                 </tr>

@@ -1,0 +1,749 @@
+[{
+  "_id": {
+    "$oid": "5ed129f46274e0052c7f34d6"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-01T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec98d14f61e082a0c38a37a"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed129f56274e0052c7f34d7"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-02T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec98d14f61e082a0c38a37a"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed129f66274e0052c7f34d8"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-03T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec98d14f61e082a0c38a37a"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed129f66274e0052c7f34d9"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-04T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec98d14f61e082a0c38a37a"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed129f76274e0052c7f34da"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-05T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec98d14f61e082a0c38a37a"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed129f96274e0052c7f34db"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-06T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec98d14f61e082a0c38a37a"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed2fe1ab2e71b5320130099"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-01T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed2fe24b2e71b532013009a"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-02T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed2fe2bb2e71b532013009b"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-03T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed2fe2fb2e71b532013009c"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-04T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed2fe31b2e71b532013009d"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-05T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed2fe32b2e71b532013009e"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-06T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a5bc25ff1b17d45d3b62"
+  },
+  "Status": "Acceptée",
+  "DateDeMatch": {
+    "$date": "2020-06-01T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dcb5c52c0c043c19610a"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a5bc25ff1b17d45d3b63"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-02T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dcb5c52c0c043c19610a"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a5bd25ff1b17d45d3b64"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-03T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dcb5c52c0c043c19610a"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a5bd25ff1b17d45d3b65"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-04T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dcb5c52c0c043c19610a"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a5bd25ff1b17d45d3b66"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-05T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dcb5c52c0c043c19610a"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a5bd25ff1b17d45d3b67"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-06T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dcb5c52c0c043c19610a"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a65025ff1b17d45d3b68"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-01T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a65025ff1b17d45d3b69"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-02T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a65125ff1b17d45d3b6a"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-03T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a65125ff1b17d45d3b6b"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-04T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a65125ff1b17d45d3b6c"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-05T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a65125ff1b17d45d3b6d"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-06T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ed2fb30b2e71b5320130091"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a67325ff1b17d45d3b6e"
+  },
+  "Status": "Acceptée",
+  "DateDeMatch": {
+    "$date": "2020-06-01T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ecdb8d7dfb6e43484f526d9"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a67425ff1b17d45d3b6f"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-02T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ecdb8d7dfb6e43484f526d9"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a67425ff1b17d45d3b70"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-03T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ecdb8d7dfb6e43484f526d9"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a67425ff1b17d45d3b71"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-04T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ecdb8d7dfb6e43484f526d9"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a67425ff1b17d45d3b72"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-05T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ecdb8d7dfb6e43484f526d9"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a67425ff1b17d45d3b73"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-06T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ecdb8d7dfb6e43484f526d9"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a69725ff1b17d45d3b74"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-01T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ecc59df1a359f29c87c6de5"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a69825ff1b17d45d3b75"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-02T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ecc59df1a359f29c87c6de5"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a69825ff1b17d45d3b76"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-03T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ecc59df1a359f29c87c6de5"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a69925ff1b17d45d3b77"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-04T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ecc59df1a359f29c87c6de5"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a69925ff1b17d45d3b78"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-05T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ecc59df1a359f29c87c6de5"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7a69925ff1b17d45d3b79"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-06T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ecc59df1a359f29c87c6de5"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed7aae825ff1b17d45d3b7a"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-01T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dc40c52c0c043c196102"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed8465c40a851557c1c1f07"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-07T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dc40c52c0c043c196102"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+},{
+  "_id": {
+    "$oid": "5ed8f1ac6b962c152c553d93"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-02T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dc40c52c0c043c196102"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed8f1b16b962c152c553d94"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-03T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dc40c52c0c043c196102"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed8f1b16b962c152c553d95"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-04T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dc40c52c0c043c196102"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed8f1b26b962c152c553d96"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-05T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dc40c52c0c043c196102"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed8f1b26b962c152c553d97"
+  },
+  "Status": "En attente",
+  "DateDeMatch": {
+    "$date": "2020-06-06T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dc40c52c0c043c196102"
+  },
+  "idCentre": {
+    "$oid": "5e9a27dd04f13c23788ca03a"
+  }
+},{
+  "_id": {
+    "$oid": "5ed8f519c1e35038f48476ba"
+  },
+  "Status": "Refusée",
+  "DateDeMatch": {
+    "$date": "2020-06-01T23:00:00Z"
+  },
+  "idHourGame": {
+    "$oid": "5eac1c529c0f332f04a9ff4e"
+  },
+  "idClient": {
+    "$oid": "5ec7dc40c52c0c043c196102"
+  },
+  "idCentre": {
+    "$oid": "5e99ecd7f83a762428864f83"
+  }
+}]

@@ -36,8 +36,8 @@ class FormClient extends React.Component {
 
   render() {
     const { isLogginActive } = this.state;
-    const current = isLogginActive ? "Register" : "Login";
-    const currentActive = isLogginActive ? "login" : "register";
+    const current = isLogginActive ? "Inscription" : "Connexion";
+    const currentActive = isLogginActive ? "Connexion" : "Inscription";
     
     return (
       <div >
